@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Story</string>
+    <string name="error_invalid_email_not_valid">%s is not a valid email</string>
+    <string name="error_invalid_password_not_valid">Please enter a password that is at least 6 characters long.</string>
+    <string name="error_cannot_be_empty">This cannot be empty.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="progress_dialog_authenticating_with_firebase">Authenticating with Firebase…</string>
+</resources>
