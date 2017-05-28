@@ -3,6 +3,7 @@ package com.example.ganesh.story.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,8 +13,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.ganesh.story.R;
-import com.example.ganesh.story.ui.authentication.CreateAccountActivity;
 import com.example.ganesh.story.ui.authentication.LoginActivity;
+import com.example.ganesh.story.ui.navigationDrawer.NavigationDrawerFragment;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -33,10 +34,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setTitle("Story");
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //NAVIGATION DRAWER
+        NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_navigation_drawer);
+        navigationDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+
+
+        //DATABASE CONNECTION
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Log.e(LOG_TAG,"Database= "+ mDatabase);
         Firebase.setAndroidContext(this);
