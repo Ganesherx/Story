@@ -3,7 +3,6 @@ package com.example.ganesh.story.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.ganesh.story.R;
 import com.example.ganesh.story.ui.authentication.LoginActivity;
-import com.example.ganesh.story.ui.navigationDrawer.NavigationDrawerFragment;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -40,17 +38,10 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("Story");
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //NAVIGATION DRAWER
-        NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_navigation_drawer);
-        navigationDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
-
 
         //DATABASE CONNECTION
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        Log.e(LOG_TAG,"Database= "+ mDatabase);
+        Log.e(LOG_TAG, "Database= " + mDatabase);
         Firebase.setAndroidContext(this);
         mAuth = FirebaseAuth.getInstance();
 
@@ -58,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() == null) {
-                    Log.e(LOG_TAG,"current user:"+ (firebaseAuth.getCurrentUser())  );
-                    Intent createAccountIntent=new Intent(MainActivity.this, LoginActivity.class);
+                    Log.e(LOG_TAG, "current user:" + (firebaseAuth.getCurrentUser()));
+                    Intent createAccountIntent = new Intent(MainActivity.this, LoginActivity.class);
                     createAccountIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(createAccountIntent);
                     finish();
@@ -67,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -98,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     public void logout() {
         mAuth.signOut();
         Toast.makeText(MainActivity.this, "Successfully Logout", Toast.LENGTH_SHORT).show();
