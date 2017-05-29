@@ -33,10 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //TOOLBAR
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle("Story");
-        setSupportActionBar(toolbar);
+        initializeScrren();
 
 
         //DATABASE CONNECTION
@@ -57,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+
+    }
+
+    private void initializeScrren() {
+        //TOOLBAR
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar.setTitle("Story");
+        setSupportActionBar(toolbar);
+
+
     }
 
     @Override
@@ -95,4 +103,6 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signOut();
         Toast.makeText(MainActivity.this, "Successfully Logout", Toast.LENGTH_SHORT).show();
     }
+
+
 }

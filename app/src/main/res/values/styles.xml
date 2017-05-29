@@ -9,12 +9,7 @@
 
     </style>
 
-    <style name="Toolbar" parent="Theme.AppCompat.DayNight.DarkActionBar" popuptheme="Theme.Appcompat.Light.DarkActionBar">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-
-    <style name="MyDarkToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="MyDarkToolbarStyle" parent="Base.ThemeOverlay.AppCompat.Light">
         <item name="android:colorBackground">@color/white</item>
         <item name="android:textColor">@color/black</item>
     </style>
