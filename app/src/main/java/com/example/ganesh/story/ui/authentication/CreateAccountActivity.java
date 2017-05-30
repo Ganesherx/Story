@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,17 +23,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 public class CreateAccountActivity extends AppCompatActivity {
 
     private final String LOG_TAG = CreateAccountActivity.class.getName();
 
     private ProgressDialog mAuthProgessDialog;
-    private EditText mEditTextUsernameCreate, mEditTextEmailCreate, mEditTextPasswordCreate;
+    private EditText mEditTextUsernameCreate, mEditTextEmailCreate, mEditTextPasswordCreate,mEditTextNameCreate;
     private Button mButtonSignUp;
-    private String mUserName, mUserEmail, mUserPassword;
-private TextView mTextViewGoForSignIn;
+    private String mUserName, mUserEmail, mUserPassword,mName;
+    private TextView mTextViewGoForSignIn;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
@@ -45,7 +42,7 @@ private TextView mTextViewGoForSignIn;
 
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
         initializeScreen();
 
@@ -63,17 +60,18 @@ private TextView mTextViewGoForSignIn;
         mEditTextEmailCreate = (EditText) findViewById(R.id.edit_text_create_email);
         mEditTextPasswordCreate = (EditText) findViewById(R.id.edit_text_create_password);
         mButtonSignUp = (Button) findViewById(R.id.button_create_signup);
+        mEditTextNameCreate=(EditText)findViewById(R.id.edit_text_create_name);
 
         mAuthProgessDialog = new ProgressDialog(this);
         mAuthProgessDialog.setTitle("Loading...");
         mAuthProgessDialog.setMessage("Attempting to create account...");
         mAuthProgessDialog.setCancelable(false);
 
-        mTextViewGoForSignIn=(TextView)findViewById(R.id.text_view_sign_in);
+        mTextViewGoForSignIn = (TextView) findViewById(R.id.text_view_sign_in);
         mTextViewGoForSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateAccountActivity.this,LoginActivity.class));
+                startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
             }
         });
     }
@@ -83,14 +81,17 @@ private TextView mTextViewGoForSignIn;
         mUserName = mEditTextUsernameCreate.getText().toString();
         mUserEmail = mEditTextEmailCreate.getText().toString();
         mUserPassword = mEditTextPasswordCreate.getText().toString();
+        mName=mEditTextNameCreate.getText().toString();
 
+        boolean validName=isNameValid(mName);
         boolean validEmail = isEmailValid(mUserEmail);
         boolean validUserName = isUserNameValid(mUserName);
         boolean validUserPassword = isPasswordValid(mUserPassword);
 
-        if (!validEmail || !validUserName || !validUserPassword) {
+        if (!validName  || !validEmail || !validUserName || !validUserPassword) {
             return;
         }
+
         mAuthProgessDialog.show();
         mAuth.createUserWithEmailAndPassword(mUserEmail, mUserPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -113,13 +114,16 @@ private TextView mTextViewGoForSignIn;
 
     }
 
-    private void createUserInFirebaseHelper(String user_id) {
+
+
+    private void createUserInFirebaseHelper(final String user_id) {
         final DatabaseReference userLocationReference = mDatabase.child(user_id);
         userLocationReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                userLocationReference.child("Username").setValue(mUserName);
-                userLocationReference.child("Email").setValue(mUserEmail);
+                userLocationReference.child("username").setValue(mUserName);
+                userLocationReference.child("email").setValue(mUserEmail);
+                userLocationReference.child("name").setValue(mName);
             }
 
             @Override
@@ -128,7 +132,13 @@ private TextView mTextViewGoForSignIn;
             }
         });
     }
-
+    private boolean isNameValid(String mName) {
+        if(mName.equals("")){
+            mEditTextNameCreate.setError("This cannot be empty.");
+            return false;
+        }
+        return true;
+    }
     private boolean isEmailValid(String email) {
         boolean isGoodEmail =
                 (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
@@ -157,6 +167,6 @@ private TextView mTextViewGoForSignIn;
     }
 
     public void goForSignIn(View view) {
-        startActivity(new Intent(CreateAccountActivity.this,LoginActivity.class));
+        startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
     }
 }

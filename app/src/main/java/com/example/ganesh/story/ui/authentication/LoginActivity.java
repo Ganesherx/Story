@@ -6,8 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,20 +32,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.auth.TwitterAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-
-import io.fabric.sdk.android.Fabric;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String LOG_TAG = LoginActivity.class.getName();
@@ -88,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+        mDatabase.keepSynced(true);
 
         //Email password Login
         mButtonSignin.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
                 signInWithEmailAndPassword();
             }
         });
-
 
 
         //Google Login
@@ -112,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-                         Toast.makeText(LoginActivity.this,"Connection Failed",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Connection Failed", Toast.LENGTH_SHORT).show();
 
                     }
                 })
@@ -129,6 +121,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -144,8 +138,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signInWithEmailAndPassword() {
-        mUserEmail=mEditTextEmail.getText().toString();
-        mPassword=mEditTextPassword.getText().toString();
+
+        mUserEmail = mEditTextEmail.getText().toString();
+        mPassword = mEditTextPassword.getText().toString();
 
         if (mUserEmail.equals("")) {
             mEditTextEmail.setError(getString(R.string.error_cannot_be_empty));
@@ -158,16 +153,16 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         mAuthProgressDialog.show();
-        mAuth.signInWithEmailAndPassword(mUserEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(mUserEmail, mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.e(LOG_TAG,"task:"+ task.isSuccessful());
-                if (task.isSuccessful()){
+                Log.e(LOG_TAG, "task:" + task.isSuccessful());
+                if (task.isSuccessful()) {
                     mAuthProgressDialog.dismiss();
                     checkUserExist();
-                }else{
+                } else {
                     mAuthProgressDialog.dismiss();
-                    Toast.makeText(LoginActivity.this ,"Error while Signin!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Error while Signin!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -182,8 +177,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initializeScreen() {
 
-        mEditTextEmail = (EditText)findViewById(R.id.edit_text_signin_email);
-        mEditTextPassword = (EditText)findViewById(R.id.edit_text_signin_password);
+        mEditTextEmail = (EditText) findViewById(R.id.edit_text_signin_email);
+        mEditTextPassword = (EditText) findViewById(R.id.edit_text_signin_password);
         mButtonSignin = (Button) findViewById(R.id.button_signin);
 
         mAuthProgressDialog = new ProgressDialog(this);
@@ -191,13 +186,14 @@ public class LoginActivity extends AppCompatActivity {
         mAuthProgressDialog.setMessage(getString(R.string.progress_dialog_authenticating_with_firebase));
         mAuthProgressDialog.setCancelable(false);
 
-        mTextViewnGoForSignUp=(TextView)findViewById(R.id.text_view_sign_up);
+        mTextViewnGoForSignUp = (TextView) findViewById(R.id.text_view_sign_up);
         mTextViewnGoForSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,CreateAccountActivity.class));
+                startActivity(new Intent(LoginActivity.this, CreateAccountActivity.class));
             }
         });
+
     }
 
 
@@ -274,5 +270,6 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
+
 
 }

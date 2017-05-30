@@ -9,10 +9,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
 import com.example.ganesh.story.R;
 import com.example.ganesh.story.ui.authentication.LoginActivity;
+import com.example.ganesh.story.ui.post.PostActivity;
+import com.example.ganesh.story.ui.profile.ProfileActivity;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -91,18 +93,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.action_logout) {
-            logout();
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_profile:
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                break;
+             default:break;
+
         }
+
         return super.onOptionsItemSelected(item);
     }
 
-    public void logout() {
-        mAuth.signOut();
-        Toast.makeText(MainActivity.this, "Successfully Logout", Toast.LENGTH_SHORT).show();
+
+
+
+    public void postNewStory(View view) {
+       startActivity(new Intent(MainActivity.this, PostActivity.class));
     }
-
-
 }

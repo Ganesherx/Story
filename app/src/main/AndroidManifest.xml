@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ganesh.story">
 
-    <!--PERMISSIONS -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- PERMISSIONS -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -18,15 +19,28 @@
             android:label="Story">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ui.authentication.CreateAccountActivity" />
+        <activity android:name=".ui.authentication.LoginActivity" />
+        <activity android:name=".ui.post.PostActivity" />
         <activity
-            android:name=".ui.authentication.CreateAccountActivity"/>
-
+            android:name=".ui.profile.ProfileActivity"
+            android:label="">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
         <activity
-            android:name=".ui.authentication.LoginActivity" />
+            android:name=".ui.profile.EditProfileActivity"
+            android:label="">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />>
+
+        </activity>
     </application>
 
 </manifest>

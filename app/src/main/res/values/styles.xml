@@ -14,6 +14,14 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="FAB">
+        <item name="android:layout_margin">23dp</item>
+        <item name="fabSize">normal</item>
+        <item name="rippleColor">@android:color/white</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+    </style>
+
+
 
 </resources>
 
