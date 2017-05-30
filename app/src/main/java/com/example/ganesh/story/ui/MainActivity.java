@@ -3,6 +3,7 @@ package com.example.ganesh.story.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -10,11 +11,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.ganesh.story.R;
 import com.example.ganesh.story.ui.authentication.LoginActivity;
+import com.example.ganesh.story.ui.like.StoryLikeActivty;
 import com.example.ganesh.story.ui.post.PostActivity;
 import com.example.ganesh.story.ui.profile.ProfileActivity;
+import com.example.ganesh.story.ui.search.SearchActivity;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -57,6 +61,31 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        //Bottom navigation
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_home:
+                                break;
+                            case R.id.action_like:
+                                startActivity(new Intent(MainActivity.this, StoryLikeActivty.class));
+                                break;
+                            case R.id.action_search:
+                                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                                break;
+                            case R.id.action_profile:
+                                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                                break;
+                        }
+                        return false;
+                    }
+                });
 
     }
 
@@ -94,20 +123,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_profile:
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                break;
-             default:break;
-
+            case R.id.action_notification:
+                Toast.makeText(MainActivity.this, "Notification", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
     public void postNewStory(View view) {
-       startActivity(new Intent(MainActivity.this, PostActivity.class));
+        startActivity(new Intent(MainActivity.this, PostActivity.class));
     }
 }

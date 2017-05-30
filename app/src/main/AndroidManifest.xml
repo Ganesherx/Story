@@ -38,9 +38,11 @@
             android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />>
-
+                android:value=".ui.MainActivity" />
+            >
         </activity>
+        <activity android:name=".ui.like.StoryLikeActivty" />
+        <activity android:name=".ui.search.SearchActivity"></activity>
     </application>
 
 </manifest>

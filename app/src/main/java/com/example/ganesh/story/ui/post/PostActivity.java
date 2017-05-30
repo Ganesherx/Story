@@ -18,8 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.ganesh.story.R;
-import com.example.ganesh.story.ui.MainActivity;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,13 +30,14 @@ import com.google.firebase.storage.UploadTask;
 public class PostActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = PostActivity.class.getName();
+    private static final int GALLERY_REQUEST = 1;
     private ImageView imageView;
     private EditText mEditTextTitle;
     private TextView mTextViewShare;
-    private static final int GALLERY_REQUEST = 1;
     private String mUserStoryTitle;
     private Uri imageUri;
     private RelativeLayout mRelativeLayout;
+
 
     private DatabaseReference mDatabase;
     private StorageReference mStoragereference;
@@ -66,8 +65,6 @@ public class PostActivity extends AppCompatActivity {
                 postMyStory();
             }
         });
-
-
 
 
     }
@@ -119,6 +116,7 @@ public class PostActivity extends AppCompatActivity {
         mDatabase= FirebaseDatabase.getInstance().getReference().child("story");
         mAuth = FirebaseAuth.getInstance();
 
+
     }
 
 
@@ -143,5 +141,10 @@ public class PostActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void closePost(View view) {
+        finish();
     }
 }
