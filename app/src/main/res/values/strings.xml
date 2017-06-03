@@ -7,5 +7,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="progress_dialog_authenticating_with_firebase">Authenticating with Firebase…</string>
-
+    <string name="remove_item_option">Remove Item</string>
+    <string name="dialog_message_are_you_sure_remove_bookmark">Are you sure you want to remove this bookmark?</string>
 </resources>

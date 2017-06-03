@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ganesh.story.R;
-import com.example.ganesh.story.ui.MainActivity;
+import com.example.ganesh.story.activeStory.MainActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -39,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
+    public static final int RC_SIGN_IN = 1;
     private static final String LOG_TAG = LoginActivity.class.getName();
     private TextView mTextViewnGoForSignUp;
     private ProgressDialog mAuthProgressDialog;
@@ -48,11 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     private String mUserEmail, mPassword;
     private EditText mEditTextEmail, mEditTextPassword;
     private Button mButtonSignin;
-
-
     /* Google login  */
     private SignInButton mGoogleLogin;
-    public static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
 
 

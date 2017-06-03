@@ -5,6 +5,7 @@
     <!-- PERMISSIONS -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -15,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".activeStory.MainActivity"
             android:label="Story">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,18 +32,20 @@
             android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".activeStory.MainActivity" />
         </activity>
         <activity
             android:name=".ui.profile.EditProfileActivity"
             android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".activeStory.MainActivity" />
             >
         </activity>
         <activity android:name=".ui.like.StoryLikeActivty" />
-        <activity android:name=".ui.search.SearchActivity"></activity>
+        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".activeStory.bookmark.BookmarkActivity" />
+        <activity android:name=".activeStory.comment.CommentActivity"></activity>
     </application>
 
 </manifest>

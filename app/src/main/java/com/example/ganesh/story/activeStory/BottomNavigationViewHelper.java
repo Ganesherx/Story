@@ -1,4 +1,4 @@
-package com.example.ganesh.story.ui;
+package com.example.ganesh.story.activeStory;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

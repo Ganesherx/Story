@@ -14,7 +14,6 @@
         android:onClick="closePost"
         android:src="@drawable/close" />
 
-
     <ImageView
         android:id="@+id/image_view_choose_image"
         android:layout_width="match_parent"

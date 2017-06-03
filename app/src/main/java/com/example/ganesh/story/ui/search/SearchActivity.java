@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.ganesh.story.R;
-import com.example.ganesh.story.ui.BottomNavigationViewHelper;
-import com.example.ganesh.story.ui.MainActivity;
+import com.example.ganesh.story.activeStory.BottomNavigationViewHelper;
+import com.example.ganesh.story.activeStory.MainActivity;
 import com.example.ganesh.story.ui.like.StoryLikeActivty;
 import com.example.ganesh.story.ui.profile.ProfileActivity;
 

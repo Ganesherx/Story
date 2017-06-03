@@ -14,8 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ganesh.story.R;
-import com.example.ganesh.story.ui.BottomNavigationViewHelper;
-import com.example.ganesh.story.ui.MainActivity;
+import com.example.ganesh.story.activeStory.BottomNavigationViewHelper;
+import com.example.ganesh.story.activeStory.MainActivity;
+import com.example.ganesh.story.activeStory.bookmark.BookmarkActivity;
 import com.example.ganesh.story.ui.authentication.LoginActivity;
 import com.example.ganesh.story.ui.like.StoryLikeActivty;
 import com.example.ganesh.story.ui.search.SearchActivity;
@@ -31,15 +32,15 @@ import com.google.firebase.storage.StorageReference;
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = ProfileActivity.class.getName();
+    /* private static final int GALLERY_REQUEST = 1;
+     private Uri imageUri;
+     private ImageView imageView;*/
+    String name;
+    String username;
     private DatabaseReference mDatabase;
     private StorageReference mStoragereference;
     private FirebaseAuth mAuth;
     private TextView mTextViewName;
-
-   /* private static final int GALLERY_REQUEST = 1;
-    private Uri imageUri;
-    private ImageView imageView;*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +59,14 @@ public class ProfileActivity extends AppCompatActivity {
         userNamereference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String name=(String)dataSnapshot.child("name").getValue();
-                Log.e(LOG_TAG,"name:"+name);
+                name = (String) dataSnapshot.child("name").getValue();
                 mTextViewName.setText(name);
 
 
-                String username = (String) dataSnapshot.child("username").getValue();
+                username = (String) dataSnapshot.child("username").getValue();
                 toolbar.setTitle(username);
+
+
             }
 
             @Override
@@ -72,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.e(LOG_TAG, "Error while retriving user name");
             }
         });
+
 
       /*  imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +130,7 @@ public class ProfileActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mStoragereference = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        mTextViewName=(TextView)findViewById(R.id.text_view_name);
+        mTextViewName = (TextView) findViewById(R.id.text_view_name);
         //   imageView = (ImageView) findViewById(R.id.image_view_choode_profile);
 
 
@@ -150,6 +153,9 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
             case R.id.action_edit_profile:
                 startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
+                break;
+            case R.id.action_bookmark:
+                startActivity(new Intent(ProfileActivity.this, BookmarkActivity.class));
                 break;
             default:
                 break;
