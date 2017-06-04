@@ -40,12 +40,24 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activeStory.MainActivity" />
-            >
         </activity>
         <activity android:name=".ui.like.StoryLikeActivty" />
         <activity android:name=".ui.search.SearchActivity" />
-        <activity android:name=".activeStory.bookmark.BookmarkActivity" />
-        <activity android:name=".activeStory.comment.CommentActivity"></activity>
+        <activity
+            android:name=".activeStory.bookmark.BookmarkActivity"
+            android:label="Bookmark">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.profile.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".activeStory.comment.CommentActivity"
+            android:label="Comments">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activeStory.MainActivity" />
+        </activity>
+        <activity android:name=".ui.VideoActivity"></activity>
     </application>
 
 </manifest>

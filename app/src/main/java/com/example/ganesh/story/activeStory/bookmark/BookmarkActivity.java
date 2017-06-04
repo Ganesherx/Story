@@ -59,7 +59,6 @@ public class BookmarkActivity extends AppCompatActivity {
 
     private void initializeScrren() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle("Story");
         setSupportActionBar(toolbar);
 
     }

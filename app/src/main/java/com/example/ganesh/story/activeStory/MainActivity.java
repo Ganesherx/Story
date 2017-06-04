@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ganesh.story.R;
+import com.example.ganesh.story.activeStory.comment.CommentActivity;
 import com.example.ganesh.story.model.Story;
 import com.example.ganesh.story.ui.authentication.LoginActivity;
 import com.example.ganesh.story.ui.like.StoryLikeActivty;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        initializeScrren();
+        initializeScreen();
 
 
         //DATABASE CONNECTION
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void initializeScrren() {
+    private void initializeScreen() {
         //TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setTitle("Story");
@@ -174,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
 
                 //ADDING STORY LIKE IN FIREBASE
                 viewHolder.setStoryLikeButton(story_key);
-
 
                 viewHolder.mImageButtonStoryLike.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -222,6 +222,21 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
+
+                    }
+                });
+
+                //STROY COMMENT
+
+                viewHolder.mImageButtonComment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(MainActivity.this, CommentActivity.class);
+                        intent.putExtra("Story_key", story_key);
+                        Log.e(LOG_TAG, "story_key:" + story_key);
+                        Log.e(LOG_TAG, "intent:" + intent.putExtra("Stroy_key", story_key));
+                        startActivity(intent);
 
                     }
                 });
@@ -284,7 +299,10 @@ public class MainActivity extends AppCompatActivity {
                 });
 
             }
+
+
         };
+
 
         mStoryRecylerview.setAdapter(firebaseRecyclerAdapter);
 
@@ -328,14 +346,19 @@ public class MainActivity extends AppCompatActivity {
         //STROY LIKE BUTTON
         DatabaseReference mDatabaseStoryLike;
         FirebaseAuth mAuthStoryLike;
+
         //STORY BOOKMARK
         DatabaseReference mDatabaseStoryBookmark;
         FirebaseAuth mAuthStoryBookmark;
+
         //STORY LIKE COUNT
         DatabaseReference mDatabaseAddStroyLikeCountRef;
         FirebaseAuth mAuthStoryLikeCount;
         private ImageButton mImageButtonStoryLike;
         private ImageButton mImageButtonStoryBookmark;
+
+        //STORY COMMENT
+        private ImageButton mImageButtonComment;
 
 
         public StoryViewHolder(View itemView) {
@@ -358,6 +381,9 @@ public class MainActivity extends AppCompatActivity {
             mDatabaseAddStroyLikeCountRef = FirebaseDatabase.getInstance().getReference().child("story_count");
             mAuthStoryLikeCount = FirebaseAuth.getInstance();
             mDatabaseAddStroyLikeCountRef.keepSynced(true);
+
+            //STORY COMMENT
+            mImageButtonComment = (ImageButton) mView.findViewById(R.id.image_button_story_comment);
 
 
         }
